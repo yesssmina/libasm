@@ -1,26 +1,38 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <errno.h>
 
 size_t ft_strlen(const char *s);
 char *ft_strcpy(char *dest, const char *src);
 int ft_strcmp(const char *s1, const char *s2);
+ssize_t ft_write(int fd, const void *buf, size_t count);
 
 int main(void)
 {
-    printf("ft_strcmp(\"abc\", \"abc\") = %d\n", ft_strcmp("abc", "abc"));
-    printf("strcmp(\"abc\", \"abc\")    = %d\n", strcmp("abc", "abc"));
+    ssize_t ret;
 
-    printf("ft_strcmp(\"abc\", \"abd\") = %d\n", ft_strcmp("abc", "abd"));
-    printf("strcmp(\"abc\", \"abd\")    = %d\n", strcmp("abc", "abd"));
+    // Test normal
+    printf("=== Test ft_write ===\n");
+    ret = ft_write(1, "hello from ft_write\n", 20);
+    printf("Retour: %zd\n", ret);
 
-    printf("ft_strcmp(\"abd\", \"abc\") = %d\n", ft_strcmp("abd", "abc"));
-    printf("strcmp(\"abd\", \"abc\")    = %d\n", strcmp("abd", "abc"));
+    // Test write standard pour comparer
+    printf("=== Test write ===\n");
+    ret = write(1, "hello from write\n", 17);
+    printf("Retour: %zd\n", ret);
 
-    printf("ft_strcmp(\"\", \"\") = %d\n", ft_strcmp("", ""));
-    printf("strcmp(\"\", \"\")    = %d\n", strcmp("", ""));
+    // Test erreur (fd invalide)
+    printf("=== Test erreur ft_write ===\n");
+    errno = 0;
+    ret = ft_write(-1, "test", 4);
+    printf("Retour: %zd, errno: %d\n", ret, errno);
 
-    printf("ft_strcmp(\"a\", \"\") = %d\n", ft_strcmp("a", ""));
-    printf("strcmp(\"a\", \"\")    = %d\n", strcmp("a", ""));
+    // Test erreur write standard
+    printf("=== Test erreur write ===\n");
+    errno = 0;
+    ret = write(-1, "test", 4);
+    printf("Retour: %zd, errno: %d\n", ret, errno);
 
     return 0;
 }
