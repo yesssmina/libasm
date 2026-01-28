@@ -7,31 +7,22 @@ size_t ft_strlen(const char *s);
 char *ft_strcpy(char *dest, const char *src);
 int ft_strcmp(const char *s1, const char *s2);
 ssize_t ft_write(int fd, const void *buf, size_t count);
+ssize_t ft_read(int fd, void *buf, size_t count);
 
 int main(void)
 {
+    char buf[100];
     ssize_t ret;
 
-    // Test normal
-    printf("=== Test ft_write ===\n");
-    ret = ft_write(1, "hello from ft_write\n", 20);
-    printf("Retour: %zd\n", ret);
-
-    // Test write standard pour comparer
-    printf("=== Test write ===\n");
-    ret = write(1, "hello from write\n", 17);
-    printf("Retour: %zd\n", ret);
-
     // Test erreur (fd invalide)
-    printf("=== Test erreur ft_write ===\n");
+    printf("=== Test erreur ft_read ===\n");
     errno = 0;
-    ret = ft_write(-1, "test", 4);
+    ret = ft_read(-1, buf, 10);
     printf("Retour: %zd, errno: %d\n", ret, errno);
 
-    // Test erreur write standard
-    printf("=== Test erreur write ===\n");
+    printf("=== Test erreur read ===\n");
     errno = 0;
-    ret = write(-1, "test", 4);
+    ret = read(-1, buf, 10);
     printf("Retour: %zd, errno: %d\n", ret, errno);
 
     return 0;

@@ -22,12 +22,15 @@ $(NAME): $(OBJ)
 %.o: %.s
 	$(NASM) $(NFLAGS) $< -o $@
 
+test: all
+	gcc -o test main.c libasm.a
+
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) test
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test
