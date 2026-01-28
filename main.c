@@ -2,17 +2,27 @@
 #include <string.h>
 
 size_t ft_strlen(const char *s);
+char *ft_strcpy(char *dest, const char *src);
 
 int main(void)
 {
-    printf("ft_strlen(\"hello\") = %zu\n", ft_strlen("hello"));
-    printf("strlen(\"hello\")    = %zu\n", strlen("hello"));
-    
-    printf("ft_strlen(\"\") = %zu\n", ft_strlen(""));
-    printf("strlen(\"\")    = %zu\n", strlen(""));
-    
-    printf("ft_strlen(\"42 Nice\") = %zu\n", ft_strlen("42 Nice"));
-    printf("strlen(\"42 Nice\")    = %zu\n", strlen("42 Nice"));
-    
+    char dest1[20];
+    char dest2[20];
+
+    ft_strcpy(dest1, "hello");
+    strcpy(dest2, "hello");
+    printf("ft_strcpy: \"%s\"\n", dest1);
+    printf("strcpy:    \"%s\"\n", dest2);
+
+    ft_strcpy(dest1, "");
+    strcpy(dest2, "");
+    printf("ft_strcpy (empty): \"%s\"\n", dest1);
+    printf("strcpy (empty):    \"%s\"\n", dest2);
+
+    ft_strcpy(dest1, "42 Nice!");
+    strcpy(dest2, "42 Nice!");
+    printf("ft_strcpy: \"%s\"\n", dest1);
+    printf("strcpy:    \"%s\"\n", dest2);
+
     return 0;
 }
