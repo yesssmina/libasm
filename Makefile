@@ -10,6 +10,7 @@ SRC = ft_strlen.s \
 OBJ = $(SRC:.s=.o)
 
 NASM = nasm
+
 NFLAGS = -f elf64
 
 AR = ar rcs
@@ -23,7 +24,7 @@ $(NAME): $(OBJ)
 	$(NASM) $(NFLAGS) $< -o $@
 
 test: all
-	gcc -o test main.c libasm.a
+	gcc -o test main.c -L. -lasm
 
 clean:
 	rm -f $(OBJ)
